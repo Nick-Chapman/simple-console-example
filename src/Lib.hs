@@ -6,24 +6,23 @@ import           Control.Concurrent (Chan, forkIO, newChan, threadDelay,
 
 externalMessages :: IO (Chan String)
 externalMessages = do
-  chan <- newChan
-  _ <- forkIO (driveChan chan)
-  return chan
+    chan <- newChan
+    _ <- forkIO (driveChan chan)
+    return chan
   where
     driveChan :: Chan String -> IO ()
     driveChan chan = loop $ map mk [1..10]
-          where loop = \case
-                  [] -> do return ()
-                  m:messages -> do
-                    pause
-                    writeChan chan m
-                    loop messages
+      where
+        loop = \case
+            [] -> do return ()
+            m:messages -> do
+                pause
+                writeChan chan m
+                loop messages
 
-                mk i = "This is external message number " <> show (i::Integer)
+        mk i = "This is external message number " <> show (i::Integer)
 
 pause :: IO ()
 pause = do
-  --hFlush stdout
-  threadDelay 1000000
-
-
+    --hFlush stdout
+    threadDelay 1000000
