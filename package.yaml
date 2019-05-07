@@ -1,0 +1,31 @@
+name:                simple-console-example
+version:             0.1.0.0
+github:              "Nick-Chapman/simple-console-example"
+license:             BSD3
+author:              "Nick Chapman"
+maintainer:          "nic@amadido.co.uk"
+copyright:           "2019 Nick Chapman"
+description:         Example of using haskeline
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+dependencies:
+- base >= 4.7 && < 5
+- ansi-terminal
+- haskeline
+- transformers
+
+library:
+  source-dirs: src
+  ghc-options:        -Wall
+
+executables:
+  simple-console-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -Wall
+    dependencies:
+    - simple-console-example
